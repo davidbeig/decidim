@@ -73,7 +73,7 @@ describe "Homepage", type: :system do
 
       context "when the organization has the CTA button text customized" do
         let(:cta_button_text) { { en: "Sign up", es: "Regístrate", ca: "Registra't" } }
-        let(:organization) { create(:organization, cta_button_text: cta_button_text) }
+        let(:organization) { create(:organization, :with_tos, cta_button_text: cta_button_text) }
 
         it "uses the custom values for the CTA button text" do
           within ".hero" do
@@ -139,7 +139,7 @@ describe "Homepage", type: :system do
     end
 
     context "when there are static pages" do
-      let!(:static_pages) { create_list(:static_page, 3, organization: organization) }
+      let!(:static_pages) { create_list(:static_page, 2, organization: organization) }
 
       before do
         visit current_path
@@ -147,7 +147,7 @@ describe "Homepage", type: :system do
 
       it "includes links to them" do
         within ".main-footer" do
-          expect(page).to have_css("ul.footer-nav li a", count: 3)
+          expect(page).to have_css("ul.footer-nav li a", count: organization.static_pages.count)
           static_pages.each do |static_page|
             expect(page).to have_content(static_page.title["en"])
           end
