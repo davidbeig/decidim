@@ -4,6 +4,16 @@
 
 **Added**:
 
+**Changed**:
+
+**Fixed**:
+
+**Removed**:
+
+## [0.17.1](https://github.com/decidim/decidim/tree/v0.17.1)
+
+**Added**:
+
 - **decidim-accountability**: Also display the main scope as a filter for accountability results [#5022](https://github.com/decidim/decidim/pull/5022)
 
 **Changed**:
@@ -11,6 +21,7 @@
 **Fixed**:
 
 - **decidim-proposals**: Add documents folder in proposals manifest for precompile assets. [#5016](https://github.com/decidim/decidim/pull/5016)
+- **decidim-core**: Fix user-inputted content. [#5147](https://github.com/decidim/decidim/pull/5147)
 
 **Removed**:
 
@@ -188,6 +199,7 @@ end
 - **decidim-proposals**: Fix proposal participants metrics. [#5048](https://github.com/decidim/decidim/pull/5048)
 - **decidim-comments**: Don't show a second reply button when comment is hidden. [#5045](https://github.com/decidim/decidim/pull/5045)
 - **decidim-core**: Fix CSS transparencies using customized colors. [\#5071](https://github.com/decidim/decidim/pull/5071)
+- **decidim-initiatives**: Escape hashtag content [#5151](https://github.com/decidim/decidim/pull/5151)
 
 **Removed**:
 
