@@ -39,6 +39,11 @@ en:
       vote:
         decidim_consultations_response_id:
           not_found: Response not found.
+      models:
+        question:
+          attributes:
+            max_responses:
+              lower_than_min: Maximum number of responses should be higher or equal than the minimum.
   activerecord:
     models:
       decidim/consultation:
@@ -53,6 +58,12 @@ en:
       decidim/consultations/vote:
         one: Vote
         other: Votes
+    errors:
+      models:
+        decidim/consultations/vote:
+          attributes:
+            question:
+              invalid_num_votes: Number of votes is invalid
   decidim:
     admin:
       actions:
@@ -90,6 +101,10 @@ en:
         new:
           create: Create
           title: New consultation
+        results:
+          not_visible: Results will be available when consultation closes
+          total_votes: 'Total: %{count} votes'
+          participants: '%{count} participants'
         update:
           error: There was a problem updating this consultation.
           success: Consultation updated successfully.
@@ -98,6 +113,7 @@ en:
         consultations_submenu:
           info: Information
           questions: Questions
+          results: Results
         questions_submenu:
           components: Components
           configuration: Configuration
@@ -128,6 +144,9 @@ en:
           name:
             one: Response
             other: Responses
+      question_configuration:
+        form:
+          title: Advanced configuration
       question_publications:
         create:
           error: There was a problem publishing this question.
@@ -175,6 +194,7 @@ en:
         consultations: Consultations
         questions: Questions
         responses: Responses
+        results: Results
     consultations:
       admin:
         content_blocks:
@@ -304,3 +324,4 @@ en:
         unfold: Unfold
       question_header:
         back_to_consultation: See all consultations
+        back_to_question: Back to the question
