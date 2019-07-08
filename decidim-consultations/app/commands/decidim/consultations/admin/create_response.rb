@@ -30,7 +30,8 @@ module Decidim
         def create_response
           Response.create(
             question: form.context.current_question,
-            title: form.title
+            title: form.title,
+            response_group: form.response_group
           )
         end
       end

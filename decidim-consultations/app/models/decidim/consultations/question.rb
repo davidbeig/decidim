@@ -92,6 +92,22 @@ module Decidim
         max_votes&.> 1
       end
 
+      # Sorted responses according to configuration
+      def sorted_responses
+        responses.sort_by { |r| r.response_group&.id.to_i }
+      end
+
+      # matrix of responses by group (sorted by configuration)
+      def grouped_responses
+        sorted_responses.group_by(&:response_group)
+      end
+
+      def grouped?
+        return false unless multiple?
+
+        response_groups_count > 0
+      end
+
       # Public: Overrides the `comments_have_alignment?` Commentable concern method.
       def comments_have_alignment?
         true
