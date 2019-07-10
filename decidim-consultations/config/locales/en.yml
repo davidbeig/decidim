@@ -151,7 +151,6 @@ en:
             created_at: Created at
             response_group: Group
             title: Title
-            response_group: Group
           name:
             one: Response
             other: Responses
