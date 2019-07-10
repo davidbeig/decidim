@@ -71,8 +71,11 @@ en:
         new_consultation: New consultation
         new_question: New question
         new_response: New response
+        new_response_group: New group
+        response_groups: Manage response groups
         publish_results: Publish results
         unpublish_results: Unpublish results
+        back_to_responses: Back to responses
       consultation_publications:
         create:
           error: There was a problem publishing this consultation.
@@ -196,10 +199,13 @@ en:
         results:
           total_votes: 'Total: %{count} votes'
           not_visible: Results will be available when consultation closes
+        response_groups:
+          help: Use groups to organize multiple choices questions in packages.
       titles:
         consultations: Consultations
         questions: Questions
         responses: Responses
+        response_groups: Response Groups
         results: Results
     consultations:
       admin:
