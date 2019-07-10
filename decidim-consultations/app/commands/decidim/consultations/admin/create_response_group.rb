@@ -4,7 +4,7 @@ module Decidim
   module Consultations
     module Admin
       # A command with all the business logic when creating a new response
-      class CreateResponse < Rectify::Command
+      class CreateResponseGroup < Rectify::Command
         # Public: Initializes the command.
         #
         # form - A form object with the params.
@@ -20,6 +20,7 @@ module Decidim
         # Returns nothing.
         def call
           return broadcast(:invalid) if form.invalid?
+
           broadcast(:ok, create_response)
         end
 
@@ -28,10 +29,9 @@ module Decidim
         attr_reader :form
 
         def create_response
-          Response.create(
+          ResponseGroup.create(
             question: form.context.current_question,
-            title: form.title,
-            response_group: form.response_group
+            title: form.title
           )
         end
       end

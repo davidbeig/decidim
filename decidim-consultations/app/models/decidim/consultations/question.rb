@@ -38,6 +38,12 @@ module Decidim
                inverse_of: :question,
                dependent: :destroy
 
+      has_many :response_groups,
+               foreign_key: "decidim_consultations_questions_id",
+               class_name: "Decidim::Consultations::ResponseGroup",
+               inverse_of: :question,
+               dependent: :destroy
+
       has_many :categories,
                foreign_key: "decidim_participatory_space_id",
                foreign_type: "decidim_participatory_space_type",
@@ -64,8 +70,35 @@ module Decidim
         @most_voted_response ||= responses.order(votes_count: :desc).first
       end
 
+      # Total number of votes, on multiple votes questions does not match users voting
       def total_votes
         @total_votes ||= responses.sum(&:votes_count)
+      end
+
+      # Total number of users voting
+      def total_participants
+        @total_participants ||= votes.select(:decidim_author_id).distinct.count
+      end
+
+      # Multiple answers allowed?
+      def multiple?
+        return false if external_voting
+        max_votes&.> 1
+      end
+
+      # Sorted responses according to configuration
+      def sorted_responses
+        responses.sort_by { |r| r.response_group&.id.to_i }
+      end
+
+      # matrix of responses by group (sorted by configuration)
+      def grouped_responses
+        sorted_responses.group_by { |r| r.response_group }
+      end
+
+      def grouped?
+        return false unless multiple?
+        response_groups_count > 0
       end
 
       # Public: Overrides the `comments_have_alignment?` Commentable concern method.
