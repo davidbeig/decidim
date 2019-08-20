@@ -18,7 +18,7 @@ tr:
         body: Vücut
         category_id: Kategori
         has_address: Adresi var
-        scope_id: kapsam
+        scope_id: Kapsam
         state: Belirtmek, bildirmek
         suggested_hashtags: Önerilen hashtag'ler
         title: Başlık
@@ -41,6 +41,10 @@ tr:
           attributes:
             attachment:
               needs_to_be_reattached: Yeniden bağlanması gerekiyor
+            body:
+              identical: AND title aynı olamaz
+            title:
+              identical: VE vücut aynı olamaz
     models:
       decidim/proposals/accepted_proposal_event: Teklif kabul edildi
       decidim/proposals/admin/update_proposal_category_event: Teklif kategorisi değişti

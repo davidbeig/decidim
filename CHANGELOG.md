@@ -1,37 +1,38 @@
 # Change Log
 
-## [Unreleased](https://github.com/decidim/decidim/tree/HEAD)
+## [Unreleased](https://github.com/decidim/decidim/tree/0.18-stable)
 
-**Upgrade notes**:
+**Added**:
 
-- **Actions on omniauth registrations**: Due to [#4895](https://github.com/decidim/decidim/pull/4895), if there are [actions registered to be performed when a user registers throught OAuth](https://github.com/decidim/decidim/blob/master/docs/customization/oauth.md#performing-more-actions-on-omniauth-registration), the name of the event must be changed to keep them working. The subscription to the notification should be changed from:
+**Changed**:
+
+**Fixed**:
+
+- **decidim-admin**, **decidim-forms**: Fix adding answer options to a new form [#5283](https://github.com/decidim/decidim/pull/5283)
+- **decidim-core**, **decidim-proposals**: When rendering the admin log for a Proposal, use the title from extras instead of crashing, when proposal has been deleted. [#5277](https://github.com/decidim/decidim/pull/5277)
+- **decidim-core**: Fix CVE-2015-9284 Omniauth issue [#5287](https://github.com/decidim/decidim/pull/5287)
+
+**Removed**:
+
+## [0.18.0](https://github.com/decidim/decidim/tree/v0.18.0)
+
+### Upgrade notes
+
+#### Participants metrics
+
+After running the migrations, you can run the following code from the console to recalculate participants metrics (they should increase). It may take a while to complete.
 
 ```ruby
-ActiveSupport::Notifications.subscribe "decidim.events.user.omniauth_registration" do |name, started, finished, unique_id, data|
-```
-
-to
-
-```ruby
-ActiveSupport::Notifications.subscribe "decidim.user.omniauth_registration" do |name, started, finished, unique_id, data|
-```
-
-- **Bump Ruby version**: As per [\#4927](https://github.com/decidim/decidim/pull/4927) we've bumped the minimum Ruby version to 2.5.x. Check you're running a suitable Ruby version.
-
-- **User follow counters**: If you're upgrading from 0.15 please run this code from a console after running the migrations:
-
-```ruby
-Decidim::UserBaseEntity.find_each do |entity|
-  follower_count = Decidim::Follow.where(followable: entity).count
-  following_count = Decidim::Follow.where(decidim_user_id: entity.id).count
-  following_users_count = Decidim::Follow.where(decidim_user_id: entity.id, decidim_followable_type: ["Decidim::UserBaseEntity", "Decidim::User", "Decidim::UserGroup"]).count
-
-  # We use `update_columns` to skip Searchable callbacks
-  entity.update_columns(
-    followers_count: follower_count,
-    following_count: following_count,
-    following_users_count: following_users_count
-  )
+days = (Date.parse(2.months.ago.to_s)..Date.yesterday).map(&:to_s)
+Decidim::Organization.find_each do |organization|
+  old_metrics = Decidim::Metric.where(organization: organization, metric_type: "participants")
+  days.each do |day|
+    new_metric = Decidim::Metrics::ParticipantsMetricManage.new(day, organization)
+    ActiveRecord::Base.transaction do
+      old_metrics.where(day: day).delete_all
+      new_metric.save
+    end
+  end
 end
 ```
 
@@ -70,111 +71,74 @@ end
 - **decidim-verifications**: Allow resending SMS code. [\#4928](https://github.com/decidim/decidim/pull/4928)
 - **decidim-forms**: Add `:created_at` and `:id` to survey particpant answers (UserAnswersSerializer) [ \#4990](https://github.com/decidim/decidim/pull/4990)
 - **decidim-forms** Render readonly questionnaire to non logged participants [\#4991](https://github.com/decidim/decidim/pull/4991)
+- **decidim-consultations**, Add buttons fot better Questions navigation. [#5112](https://github.com/decidim/decidim/pull/5112)
+- **decidim-core**, Add rake task to recalculate all metrics since some specific date. [#5117](https://github.com/decidim/decidim/pull/5117)
+- **decidim-core**, Add instructions to recalculate participants metrics. [#5110](https://github.com/decidim/decidim/pull/5110)
+- **decidim-core**, **decidim-admin**, Add Selective Newsletter and allow Space admins to manage them. [#5039](https://github.com/decidim/decidim/pull/5039)
+- **decidim-core** Persistence related documentation for Metrics. [\#5108](https://github.com/decidim/decidim/pull/5108)
+- **decidim-core** Add optional parameter :col_sep to CSV exporter [\#5089](https://github.com/decidim/decidim/pull/5089)
+- **decidim-meetings** Let user groups join meetings [\#5060](https://github.com/decidim/decidim/pull/5060)
+- **decidim-assemblies**, **decidim-participatory_processes** Reorganize admin form [\#5068](https://github.com/decidim/decidim/pull/5068)
+- **decidim-assemblies**, **decidim-participatory_processes** Table headers sortable links [\#5010](https://github.com/decidim/decidim/pull/5010)
+- **decidim-assemblies**, **decidim-participatory_processes** Filter spaces by scope and area [\#5047](https://github.com/decidim/decidim/pull/5047)
+- **decidim-admin**: Do not allow to delete areas when they have dependent spaces. [#5041](https://github.com/decidim/decidim/pull/5041)
+- **decidim-assemblies**, **decidim-conferences**, **decidim-participatory_processes** Space CTA button text changes when no components [\#5006](https://github.com/decidim/decidim/pull/5006)
+- **decidim-participatory_processes**: Add a select field for assign an area to participatory processes [#5011](https://github.com/decidim/decidim/pull/5011)
+- **decidim-accountability**: Also display the main scope as a filter for accountability results [#5022](https://github.com/decidim/decidim/pull/5022)
+- **decidim-system**: Add custom SMTP settings for multitenant [#4698](https://github.com/decidim/decidim/pull/4698)
+- **decidim-proposals**: Add proposal answers to the proposal export [#5139](https://github.com/decidim/decidim/pull/5139)
+- **decidim-core**: Provide "good" password rules [#5106](https://github.com/decidim/decidim/pull/5106)
 
 **Changed**:
 
-- **decidim-proposals** Allow to change participatory texts title without uploading file. [\#4761](https://github.com/decidim/decidim/pull/4761)
-- **decidim-proposals** Change collaborative draft contributors permissions [\#4712](https://github.com/decidim/decidim/pull/4712)
-- **decidim-admin**: Change admin moderations manager [\#4717](https://github.com/decidim/decidim/pull/4717)
-- **decidim-core**: Change action_authorization and modals to manage multiple authorization handlers instead of one [\#4747](https://github.com/decidim/decidim/pull/4747)
-- **decidim-admin**: Change interface to manage multiple authorizations for components and resources [\#4747](https://github.com/decidim/decidim/pull/4747)
-- **decidim-initiatives**: Change logic of online sign initiative buttons. [\#4841](https://github.com/decidim/decidim/pull/4841)
-- **decidim-initiatives**: Add a last step on signature initiatives wizard and use it instead of redirect to initiative after signing. [\#4841](https://github.com/decidim/decidim/pull/4841)
-- **decidim-initiatives**: Change permissions of sign_initiative action. [\#4841](https://github.com/decidim/decidim/pull/4841)
-- **decidim-initiatives**: Allow edition of type, scope and signature type of initiatives depending on state and user. [\#4861](https://github.com/decidim/decidim/pull/4861)
-- **decidim-initiatives**: Move edition of initiatives answer to a separated form in admin panel and shows answer in front if present for any state. [\#4881](https://github.com/decidim/decidim/pull/4881)
-- **decidim-initiatives**: Change initiative type selection step view to display options using tabs. [\#4884](https://github.com/decidim/decidim/pull/4884)
-- **decidim-initiatives**: Change design of column containing signatures progress and actions buttons in initiative show. [\#4887](https://github.com/decidim/decidim/pull/4887)
-- **decidim-initiatives**: Change initiative creation wizard layout. [\#4888](https://github.com/decidim/decidim/pull/4888)
-- **decidim-initiatives**: Make changes related with initiatives signature and permissions ux. [\#4906](https://github.com/decidim/decidim/pull/4906)
-- **decidim-admin**: Fix inputs of translated attributes in resource permissions options form. [\#4911](https://github.com/decidim/decidim/pull/4911)
-- **decidim**: Bump required Ruby minimum version to 2.5.x [\#4927](https://github.com/decidim/decidim/pull/4927)
-- **decidim-initiatives**: Validate vote_form metadata considering initiative scope and also children scopes. [\#4933](https://github.com/decidim/decidim/pull/4933)
+- **decidim-accountability**, **decidim-core**, **decidim-proposals**: Improve UX for diff views of versions. [#5149](https://github.com/decidim/decidim/pull/5149)
+- **decidim-core**: Allow for extension in Decidim::User::ROLES. [#5133](https://github.com/decidim/decidim/pull/5133)
+- **decidim-core**: PermissionsRegistry introduced to enable reconfiguration of permission_class_chain. [#5069](https://github.com/decidim/decidim/pull/5069)
+- **decidim-core**: Change attachment photo image alt texts to title instead of description. [#5043](https://github.com/decidim/decidim/pull/5043)
+- **decidim-comments**: Allow cancelling a vote on a comment. [#5042](https://github.com/decidim/decidim/pull/5042)
+- **decidim-initiatives**: Add styles inline in PDF document of signatures [#5103](https://github.com/decidim/decidim/pull/5103)
+- **decidim-core**: Update nobspw [#5227](https://github.com/decidim/decidim/pull/5227)
 
 **Fixed**:
 
-- **decidim-core**: Don't send email if user can not participate in space [/#4988](https://github.com/decidim/decidim/pull/4988)
-- **decidim-proposals**: Fix proposal wizard back button [\#4976](https://github.com/decidim/decidim/pull/4976)
-- **decidim-participatory_processes**: Fix visibility of private processes on process groups. [#4965](https://github.com/decidim/decidim/pull/4965)
-- **decidim-proposals**: Update error message when a Proposal can not be withdrawn due to already existing supports.  [#4961](https://github.com/decidim/decidim/pull/4961)
-- **decidim-meetings**: Fix card list data displays. [#4972](https://github.com/decidim/decidim/pull/4972)
-- **decidim-assemblies**: Fix only show published children assemblies in public view [#4969](https://github.com/decidim/decidim/pull/4969)
-- **decidim-core**: Fix wrong check of avatar_url in `/oauth/me` controller  [#4917](https://github.com/decidim/decidim/pull/4917)
-- **decidim-core**: Don't mix omniauth notifications with `Decidim::EventManager` events [#4895](https://github.com/decidim/decidim/pull/4895)
-- **decidim-core**: Hide comments on cards when deactivated on a component. [\#4904](https://github.com/decidim/decidim/pull/4904)
-- **decidim-debates**: Fix stats display for debates when a debate has been moderated. [\#4903](https://github.com/decidim/decidim/pull/4903)
-- **decidim-core**: Fix comments count when a comment has been moderated [\#4901](https://github.com/decidim/decidim/pull/4901)
-- **decidim-core**: Fix AttachmentCreatedEvent email resource_url [#4880](https://github.com/decidim/decidim/pull/4880)
-- **decidim-proposals**: Add participatory texts file format support in admin. [#4819](https://github.com/decidim/decidim/pull/4819)
-- **decidim-proposals**: Fix collaborative draft attachment when attachments are enabled after collaborative draft creation [\#4877](https://github.com/decidim/decidim/pull/4877)
-- **decidim-assemblies**: Fix parent assemblies children_count counter (add migration) [\#4852](https://github.com/decidim/decidim/pull/4852/)
-- **decidim-proposals**: Fix Proposals Last Activity feed [\#4828](https://github.com/decidim/decidim/pull/4828)
-- **decidim-proposals**: Fix attachments not being inherited from collaborative draft when published as proposal. [\#4811](https://github.com/decidim/decidim/pull/4811)
-- **decidim-core**: Add set_locale method to prevent users be redirected to unexpected locale[#4809](https://github.com/decidim/decidim/pull/4809)
-- **decidim-core**: Fix inconsistent dataviz [\#4787](https://github.com/decidim/decidim/pull/4787)
-- **decidim-proposals**: Fix participatory texts error uploading files with accents and special characters. [\#4788](https://github.com/decidim/decidim/pull/4788)
-- **decidim-meetings**: Fix form when duplicating meetings [\#4750](https://github.com/decidim/decidim/pull/4750)
-- **decidim-proposals**: Fix admin proposals manager: show proposal state [\#4789](https://github.com/decidim/decidim/pull/4789/)
-- **decidim-core**: Fix DataPortabilityExportJob: private method 'file' called when Carrierwave Storage fog enable [#4337](https://github.com/decidim/decidim/pull/4337)
-- **decidim-proposals** Public view of Participatory Text is now preserving new lines. [\#4782](https://github.com/decidim/decidim/pull/4782)
-- **decidim-assemblies**: Fix assemblies filter by type [\#4778](https://github.com/decidim/decidim/pull/4778)
-- **decidim-conferences**: Fix error when visiting a Conference event[\#4776](https://github.com/decidim/decidim/pull/4776)
-- **decidim-proposals** Fix unhideable reported collaborative drafts and mail jobs [\#4706](https://github.com/decidim/decidim/pull/4706)
-- **decidim-assemblies**: Fix parent assemblies children_count counter [\#4718](https://github.com/decidim/decidim/pull/4718/)
-- **decidim-core**: Place `CurrentOrganization` middleware before `WardenManager`. [\#4708](https://github.com/decidim/decidim/pull/4708)
-- **decidim-core**: Fix form builder upload field multiple errors display [\#4715](https://github.com/decidim/decidim/pull/4715)
-- **decidim-core**: MetricResolver filtering corrected comparison between symbol and string [\#4733](https://github.com/decidim/decidim/pull/4733)
-- **decidim-core**: Ignore blank permission options in action authorizer [\#4744](https://github.com/decidim/decidim/pull/4744)
-- **decidim-core**: Date field form inputs failing to highlight errors on some edge cases. [\#3515](https://github.com/decidim/decidim/pull/3515)
-- **decidim-core**: Datetime field form inputs failing to highlight errors on some edge cases. [\#3515](https://github.com/decidim/decidim/pull/3515)
-- **decidim-proposals** Lock proposals on voting to avoid race conditions to vote over the limit [\#4763](https://github.com/decidim/decidim/pull/4763)
-- **decidim-initiatives** Add missing dependency for wicked_pdf to initiatives module [\#4813](https://github.com/decidim/decidim/pull/4813)
-- **decidim-participatory_processes**: Shows the short description on processes when displaying a single one on the homepage. [\#4824](https://github.com/decidim/decidim/pull/4824)
-- **decidim-core** Fix redirect to static map view after login. [\#4830](https://github.com/decidim/decidim/pull/4830)
-- **decidim-proposals**: Add missing translation key for "Address". [\#4835](https://github.com/decidim/decidim/pull/4835)
-- **decidim-proposals**: Fix proposal activity cell rendering. [\#4848](https://github.com/decidim/decidim/pull/4848)
-- **decidim-meetings**: Fix accepting/declining meeting invitations [\#4839](https://github.com/decidim/decidim/pull/4839)
-- **decidim-budgets**: Allow only to attach published proposals to budgeting projects [\#4840](https://github.com/decidim/decidim/pull/4840)
-- **decidim-core**: Prevent empty selection in the data picker [\#4842](https://github.com/decidim/decidim/pull/4842)
-- **decidim-forms**: Fix free text fields exporting. [\#4846](https://github.com/decidim/decidim/pull/4846)
-- **decidim-initiatives** Fix admin layout of some subsections of initiatives participatory spaces. [\#4849](https://github.com/decidim/decidim/pull/4849)
-- **decidim-proposals** Fix recent proposals order [\#4854](https://github.com/decidim/decidim/pull/4854)
-- **decidim-core**: Fix user activities list [\#4853](https://github.com/decidim/decidim/pull/4853)
-- **decidim-comments** Fix author display in comments [\#4851](https://github.com/decidim/decidim/pull/4851)
-- **decidim-debates** Allow HTML content at debates page [\#4850](https://github.com/decidim/decidim/pull/4850)
-- **decidim-proposals** Fix proposals search indexes [\#4857](https://github.com/decidim/decidim/pull/4857)
-- **decidim-proposals** Remove etiquette validation from proposals admin [\#4856](https://github.com/decidim/decidim/pull/4856)
-- **decidim-core**: Fix process filters [\#4872](https://github.com/decidim/decidim/pull/4872)
-- **decidim-debates** Fix debates card and ordering [\#4879](https://github.com/decidim/decidim/pull/4879)
-- **decidim-proposals** Don't count withdrawn proposals when publishing one [\#4875](https://github.com/decidim/decidim/pull/4875)
-- **decidim-initiatives** Fix author duplicated appearance in some initiatives authors lists. [\#4885](https://github.com/decidim/decidim/pull/4885)
-- **decidim-meetings**, **decidim-forms**: Fix form to_param methods printing out empty IDs and causing an HTTP 400 exception [\#4896](https://github.com/decidim/decidim/pull/4896)
-- **decidim-core** Fix elements with non-unique ID on filtering pages [\#4897](https://github.com/decidim/decidim/pull/4897)
-- **decidim-debates** Correctly set the category in the admin debate form [\#4894](https://github.com/decidim/decidim/pull/4894)
-- **decidim-proposals**: Let admins keep orirignal authors when importing proposals from another component [\#4902](https://github.com/decidim/decidim/pull/4902)
-- **decidim-proposals**: Don't let users vote/follow withdrawn proposals [\#4909](https://github.com/decidim/decidim/pull/4909)
-- **decidim-participatory_processes**: Fix collaborator permissions so they can't `:read` anything [\#4899](https://github.com/decidim/decidim/pull/4899)
-- **decidim-initiatives** Add some small fixes in admin panel of initiatives [\#4912](https://github.com/decidim/decidim/pull/4912)
-- **decidim-core**: Ensure email is downcased when authenticating a user [\#4926](https://github.com/decidim/decidim/pull/4926)
-- **decidim-proposals**: Allow reporting official proposals [\#4930](https://github.com/decidim/decidim/pull/4930)
-- **decidim-participatory_processes**: Fix past processes filter [\#4932](https://github.com/decidim/decidim/pull/4932)
-- **decidim-verifications**: Redirect to previous url after verifying your mobile number via SMS. [\#4929](https://github.com/decidim/decidim/pull/4929)
-- **decidim-budgets**: Fix button updates [\#4941](https://github.com/decidim/decidim/pull/4941)
-- **decidim-comments**: Fix comment reply when comments blocked [\#4939](https://github.com/decidim/decidim/pull/4939)
-- **decidim-forms**: Keep correct answers of sinlge-choice question when there are errors [\#4934](https://github.com/decidim/decidim/pull/4934)
-- **decidim-consultations**: Allow admins to manage components [\#4942](https://github.com/decidim/decidim/pull/4942)
-- **decidim-comments**: Fix comments on IE11 [\#4946](https://github.com/decidim/decidim/pull/4946)
-- **decidim-surveys**: Ensure the user has authorization to render the survey [\#4943](https://github.com/decidim/decidim/pull/4943)
-- **decidim-meetings**: Fix meeting questionnaire migration [\#4950](https://github.com/decidim/decidim/pull/4950/)
-- **decidim-core**: Speed up `AddFollowingAndFollowersCountersToUsers` migration [\#4955](https://github.com/decidim/decidim/pull/4955/)
-- **decidim-admin**: Let admins visit the autrhorization workflows index page [\#4964](https://github.com/decidim/decidim/pull/4964/)
-- **decidim-admin**: Do not generate profile URL in officializations view if nickname is missing [\#4964](https://github.com/decidim/decidim/pull/4964/)
-- **decidim-core**: Fix user presenter for user groups breaking notifications views [\#4973](https://github.com/decidim/decidim/pull/4973/)
-- **decidim-meetings**: Fix pasting to meetings description at the admin panel (and other quill editors that have hashtags enabled) [\#4980](https://github.com/decidim/decidim/pull/4980)
-- **decidim-proposals**: Fix linking to items in other modules than proposals [\#4978](https://github.com/decidim/decidim/pull/4978)
+- **decidim-admin**: Fix: Proposals component form introduced regression [\#5180](https://github.com/decidim/decidim/pull/5180)
+- **decidim-admin**: Fix: Link `form.js` in `assets/config/decidim_admin_manifest.js` [\#5165](https://github.com/decidim/decidim/pull/5165)
+- **decidim-core**: Fix: potential loop redirection when accepting TOS agreement on multi-languages sites [\#5162](https://github.com/decidim/decidim/pull/5162)
+- **decidim-assemblies**: Fix: Include asterisk in the required field `position` for `AssemblyMemberForm`. [\#5164](https://github.com/decidim/decidim/pull/5164)
+- **decidim-admin**: Fix: disallow enabling `ParticipatoryText` on component when there are proposals [\#5134](https://github.com/decidim/decidim/pull/5134)
+- **decidim-meetings**: Fix registration form in duplicated meeting [\#5136](https://github.com/decidim/decidim/pull/5136)
+- **decidim-meetings**: Fix meeting minutes related information in public view [\#5137](https://github.com/decidim/decidim/pull/5137)
+- **decidim-meetings**: Fix `deliver_now` call on `send_email_confirmation` [\#5111](https://github.com/decidim/decidim/pull/5111)
+- **decidim-admin**: fix Decidim::Admin::NewsletterRecipient query [\#5109](https://github.com/decidim/decidim/pull/5109)
+- **decidim-proposals**: Fix participatory text form. [#5094](https://github.com/decidim/decidim/pull/5094)
+- **decidim-assemblies**: Add class `card--stack` to assemblies when have children assemblies. [#5093](https://github.com/decidim/decidim/pull/5093)
+- **decidim-proposals**: Fix proposal participants metrics. [#5048](https://github.com/decidim/decidim/pull/5048)
+- **decidim-comments**: Don't show a second reply button when comment is hidden. [#5045](https://github.com/decidim/decidim/pull/5045)
+- **decidim-core**: Fix CSS transparencies using customized colors. [\#5071](https://github.com/decidim/decidim/pull/5071)
+- **decidim-core**, **decidim-proposals**: Fix: show existing amendments when amendments feature is disabled [\#5070](https://github.com/decidim/decidim/pull/5070)
+- **decidim-assemblies**: Fix admin assemblies form. [\#5054](https://github.com/decidim/decidim/pull/5054)
+- **decidim-core**: Fix repeated amendments notifications. [\#5001](https://github.com/decidim/decidim/pull/5001)
+- **decidim-core**: Fix amendments forms: show error messages and render hashtags. [#4951](https://github.com/decidim/decidim/pull/4951)
+- **decidim-comments**: Fixes that as a normal user (no private user) I can comment on a private assembly where is available. [#4924](https://github.com/decidim/decidim/pull/4924)
+- **decidim-accountability**: Handle special case when all children weight are nil on accountability. [#5026](https://github.com/decidim/decidim/pull/5026)
+- **decidim-proposals**: Filter emendations by rendering only amendments. [#5025](https://github.com/decidim/decidim/pull/5025)
+- **decidim-proposals**: Add documents folder in proposals manifest for precompile assets. [#5015](https://github.com/decidim/decidim/pull/5015)
+- **decidim-core**: Fix user notification and interest settings on IE11. [#5044](https://github.com/decidim/decidim/pull/5044)
+- **decidim-admin**, **decidim-forms**, **decidim-meetings**: Fix dynamic fields components on IE11. [#5052](https://github.com/decidim/decidim/pull/5052)
+- **decidim-core**: Fix possible NoMethodErrors in the notification jobs filling logs. [#5083](https://github.com/decidim/decidim/pull/5083)
+- **decidim-participatory_processes**: Fix step CTA URL when abse URL had params [#5082](https://github.com/decidim/decidim/pull/5082)
+- **decidim-admin**: Ensure static pages slugs are relative paths [#5085](https://github.com/decidim/decidim/pull/5085)
+- **decidim-accountability**: Remove useless button on the admin page for accountability statuses [#5099](https://github.com/decidim/decidim/pull/5099)
+- **decidim-budgets**: Fix import of proposals to budget projects [#5097](https://github.com/decidim/decidim/pull/5097)
+- **decidim-core**: Escape fingerprint content [#5146](https://github.com/decidim/decidim/pull/5146)
+- **decidim-initiatives**: Escape hashtag content [#5150](https://github.com/decidim/decidim/pull/5150)
+- **decidim-core**: Fix seeds and typo in ActionAuthorizer [#5168](https://github.com/decidim/decidim/pull/5168)
+- **decidim-proposals**: Fix seeds [#5168](https://github.com/decidim/decidim/pull/5168)
+- **decidim-core**: Fix user names migration [#5210](https://github.com/decidim/decidim/pull/5210)
+- **decidim-core**: Fix empty sender SMTP settings [#5260](https://github.com/decidim/decidim/pull/5260)
 
 **Removed**:
 
 ## Previous versions
 
-Please check [0.16-stable](https://github.com/decidim/decidim/blob/0.16-stable/CHANGELOG.md) for previous changes.
+Please check [0.17-stable](https://github.com/decidim/decidim/blob/0.17-stable/CHANGELOG.md) for previous changes.

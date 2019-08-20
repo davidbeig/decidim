@@ -185,7 +185,7 @@ fr:
             moderator: Modérateur
         media_link:
           fields:
-            date: Rendez-vous amoureux
+            date: Date
             link: Lien
             title: Titre
           name: Lien média
@@ -552,6 +552,7 @@ fr:
           take_part: Prendre part
       conferences:
         conference:
+          more_info: Plus d'informations
           take_part: Prendre part
         index:
           promoted_conferences: Conférences promues
