@@ -8,10 +8,11 @@ module Decidim
         -> { Decidim::Core::ParticipatorySpaceInterface },
         -> { Decidim::Core::ScopableInterface },
         -> { Decidim::Core::AttachableInterface },
-        -> { Decidim::Core::AuthorInterface}
+        -> { Decidim::Core::AuthorInterface},
+        -> { Decidim::Initiatives::InitiativeTypeInterface}
       ]
 
-      name "Initiatives"
+      name "Initiative"
       description "A initiative"
 
       field :description, Decidim::Core::TranslatedFieldType, "The description of this initiative."
@@ -23,8 +24,8 @@ module Decidim
       field :reference, !types.String, "Reference prefix for this initiative"
       field :state, types.String, "State of the initiative"
       field :signatureType, types.String, "Signature type of the initiative", property: :signature_type
-      field :signatureStartDate, !Decidim::Core::DateTimeType, "The signature start date", property: :signature_start_date
-      field :signatureEndDate, !Decidim::Core::DateTimeType, "The signature end date", property: :signature_end_date
+      field :signatureStartDate, !Decidim::Core::DateType, "The signature start date", property: :signature_start_date
+      field :signatureEndDate, !Decidim::Core::DateType, "The signature end date", property: :signature_end_date
       field :offlineVotes, types.Int, "The number of offline votes in this initiative", property: :offline_votes
       field :initiativeVotesCount, types.Int, "The number of votes in this initiative", property: :initiative_votes_count
       field :initiativeSupportsCount, types.Int, "The number of supports in this initiative", property: :initiative_supports_count
