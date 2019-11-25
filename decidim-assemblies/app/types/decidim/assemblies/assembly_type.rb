@@ -11,7 +11,7 @@ module Decidim
       name "Assembly"
       description "An assembly"
 
-      field :subtitle, Decidim::Core::TranslatedFieldType, ""
+      field :subtitle, Decidim::Core::TranslatedFieldType, "The subtitle of this assembly"
       field :short_description, Decidim::Core::TranslatedFieldType, "The sort description of this assembly"
       field :description, Decidim::Core::TranslatedFieldType, "The description of this assembly"
       field :slug, !types.String
