@@ -22,7 +22,7 @@ module Decidim
         let(:query) { "{ user { name } }" }
 
         it "returns the user field" do
-          expect(response['user']['name']).to eq(model.user.name)
+          expect(response["user"]["name"]).to eq(model.user.name)
         end
       end
 

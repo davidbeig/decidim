@@ -27,7 +27,7 @@ module Decidim
       end
 
       describe "position" do
-        let(:query) { '{ position }' }
+        let(:query) { "{ position }" }
 
         it "returns the position field" do
           expect(response["position"]).to eq(model.position)
@@ -38,7 +38,7 @@ module Decidim
         let(:query) { "{ user { name } }" }
 
         it "returns the user field" do
-          expect(response['user']).to be nil
+          expect(response["user"]).to be nil
         end
       end
 
