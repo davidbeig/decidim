@@ -26,6 +26,7 @@ module Decidim
       field :endVotingDate, Decidim::Core::DateType, "End date of the voting for this consultation", property: :end_voting_date
       field :resultsPublishedAt, Decidim::Core::DateType, "Date when the results have been published", property: :results_published_at
 
+      field :questions, types[Decidim::Consultations::ConsultationQuestionType], ""
       # These fields may be private:
       # decidim_participatory_process_group_id
       # decidim_organization_id
