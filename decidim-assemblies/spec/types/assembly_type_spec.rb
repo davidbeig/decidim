@@ -99,7 +99,7 @@ module Decidim
       end
 
       describe "promoted" do
-        let(:query) { "{ promoted }"}
+        let(:query) { "{ promoted }" }
 
         it "returns the promoted field" do
           expect(response["promoted"]).to eq(model.promoted)
@@ -107,7 +107,7 @@ module Decidim
       end
 
       describe "developerGroup" do
-        let(:query) { '{ developerGroup { translation(locale: "en")}}'}
+        let(:query) { '{ developerGroup { translation(locale: "en")}}' }
 
         it "returns the developerGroup field" do
           expect(response["developerGroup"]["translation"]).to eq(model.developer_group["en"])
@@ -115,7 +115,7 @@ module Decidim
       end
 
       describe "metaScope" do
-        let(:query) { '{ metaScope { translation(locale: "en")}}'}
+        let(:query) { '{ metaScope { translation(locale: "en")}}' }
 
         it "returns the metaScope field" do
           expect(response["metaScope"]["translation"]).to eq(model.meta_scope["en"])
@@ -123,7 +123,7 @@ module Decidim
       end
 
       describe "localArea" do
-        let(:query) { '{ localArea { translation(locale: "en")}}'}
+        let(:query) { '{ localArea { translation(locale: "en")}}' }
 
         it "returns the localArea field" do
           expect(response["localArea"]["translation"]).to eq(model.local_area["en"])
@@ -131,7 +131,7 @@ module Decidim
       end
 
       describe "target" do
-        let(:query) { '{ target { translation(locale: "en" )}}'}
+        let(:query) { '{ target { translation(locale: "en" )}}' }
 
         it "returns the target field" do
           expect(response["target"]["translation"]).to eq(model.target["en"])
@@ -139,7 +139,7 @@ module Decidim
       end
 
       describe "participatoryScope" do
-        let(:query) { '{ participatoryScope { translation(locale: "en" )}}'}
+        let(:query) { '{ participatoryScope { translation(locale: "en" )}}' }
 
         it "returns the participatoryScope field" do
           expect(response["participatoryScope"]["translation"]).to eq(model.participatory_scope["en"])
@@ -147,7 +147,7 @@ module Decidim
       end
 
       describe "participatoryStructure" do
-        let(:query) { '{ participatoryStructure { translation(locale: "en" )} }'}
+        let(:query) { '{ participatoryStructure { translation(locale: "en" )} }' }
 
         it "returns the participatoryStructure field" do
           expect(response["participatoryStructure"]["translation"]).to eq(model.participatory_structure["en"])
@@ -155,15 +155,15 @@ module Decidim
       end
 
       describe "showStatistics" do
-        let(:query) { "{ showStatistics }"}
+        let(:query) { "{ showStatistics }" }
 
         it "returns the showStatistics field" do
           expect(response["showStatistics"]).to eq(model.show_statistics)
         end
       end
-      
+
       describe "scopesEnabled" do
-        let(:query) { "{ scopesEnabled }"}
+        let(:query) { "{ scopesEnabled }" }
 
         it "returns the scopesEnabled field" do
           expect(response["scopesEnabled"]).to eq(model.scopes_enabled)
@@ -171,7 +171,7 @@ module Decidim
       end
 
       describe "privateSpace" do
-        let(:query) { "{ privateSpace }"}
+        let(:query) { "{ privateSpace }" }
 
         it "returns the privateSpace field" do
           expect(response["privateSpace"]).to eq(model.private_space)
@@ -179,7 +179,7 @@ module Decidim
       end
 
       describe "decidimAreaId" do
-        let(:query) { "{ decidimAreaId }"}
+        let(:query) { "{ decidimAreaId }" }
 
         it "returns the decidimAreaId field" do
           expect(response["decidimAreaId"]).to eq(model.decidim_area_id)
@@ -187,7 +187,7 @@ module Decidim
       end
 
       describe "parentId" do
-        let(:query) { "{ parentId }"}
+        let(:query) { "{ parentId }" }
 
         it "returns the parentId field" do
           expect(response["parentId"]).to eq(model.parent_id)
@@ -195,7 +195,7 @@ module Decidim
       end
 
       describe "parentsPath" do
-        let(:query) { "{ parentsPath }"}
+        let(:query) { "{ parentsPath }" }
 
         it "returns the parentsPath field" do
           expect(response["parentsPath"]).to eq(model.parents_path)
@@ -203,7 +203,7 @@ module Decidim
       end
 
       describe "childrenCount" do
-        let(:query) { "{ childrenCount }"}
+        let(:query) { "{ childrenCount }" }
 
         it "returns the childrenCount field" do
           expect(response["childrenCount"]).to eq(model.children_count)
@@ -211,7 +211,7 @@ module Decidim
       end
 
       describe "purposeOfAction" do
-        let(:query) { '{ purposeOfAction { translation(locale: "en" )}}'}
+        let(:query) { '{ purposeOfAction { translation(locale: "en" )}}' }
 
         it "returns the purposeOfAction field" do
           expect(response["purposeOfAction"]["translation"]).to eq(model.purpose_of_action["en"])
@@ -219,7 +219,7 @@ module Decidim
       end
 
       describe "composition" do
-        let(:query) { '{ composition { translation(locale: "en" )}}'}
+        let(:query) { '{ composition { translation(locale: "en" )}}' }
 
         it "returns the composition field" do
           expect(response["composition"]["translation"]).to eq(model.composition["en"])
@@ -227,7 +227,7 @@ module Decidim
       end
 
       describe "assemblyType" do
-        let(:query) { "{ assemblyType }"}
+        let(:query) { "{ assemblyType }" }
 
         it "returns the assemblyType field" do
           expect(response["assemblyType"]).to eq(model.assembly_type)
@@ -243,7 +243,7 @@ module Decidim
       end
 
       describe "createdByOther" do
-        let(:query) { '{ createdByOther { translation(locale: "en" )} }'}
+        let(:query) { '{ createdByOther { translation(locale: "en" )} }' }
 
         it "returns the createdByOther field" do
           expect(response["createdByOther"]["translation"]).to eq(model.created_by_other["en"])
@@ -275,7 +275,7 @@ module Decidim
       end
 
       describe "closingDateReason" do
-        let(:query) { '{ closingDateReason { translation(locale: "en" )} }'}
+        let(:query) { '{ closingDateReason { translation(locale: "en" )} }' }
 
         it "returns the closingDateReason field" do
           expect(response["closingDateReason"]["translation"]).to eq(model.closing_date_reason["en"])
@@ -283,7 +283,7 @@ module Decidim
       end
 
       describe "internalOrganisation" do
-        let(:query) { '{ internalOrganisation { translation(locale: "en" )} }'}
+        let(:query) { '{ internalOrganisation { translation(locale: "en" )} }' }
 
         it "returns the internalOrganisation field" do
           expect(response["internalOrganisation"]["translation"]).to eq(model.internal_organisation["en"])
@@ -299,7 +299,7 @@ module Decidim
       end
 
       describe "specialFeatures" do
-        let(:query) { '{ specialFeatures { translation(locale: "en" ) }}'}
+        let(:query) { '{ specialFeatures { translation(locale: "en" ) }}' }
 
         it "returns the specialFeatures field" do
           expect(response["specialFeatures"]["translation"]).to eq(model.special_features["en"])

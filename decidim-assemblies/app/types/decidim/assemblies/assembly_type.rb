@@ -5,16 +5,16 @@ module Decidim
     # This type represents a assembly.
     AssemblyType = GraphQL::ObjectType.define do
       interfaces [
-        -> { Decidim::Core::ParticipatorySpaceInterface },
+        -> { Decidim::Core::ParticipatorySpaceInterface }
       ]
 
       name "Assembly"
       description "An assembly"
 
       field :subtitle, Decidim::Core::TranslatedFieldType, "The subtitle of this assembly"
-      field :short_description, Decidim::Core::TranslatedFieldType, "The sort description of this assembly"
+      field :shortDescription, Decidim::Core::TranslatedFieldType, "The sort description of this assembly", property: :short_description
       field :description, Decidim::Core::TranslatedFieldType, "The description of this assembly"
-      field :slug, !types.String
+      field :slug, !types.String, "The slug of this assembly"
       field :hashtag, types.String, "The hashtag for this assembly"
       field :createdAt, !Decidim::Core::DateTimeType, "The time this assembly was created", property: :created_at
       field :updatedAt, !Decidim::Core::DateTimeType, "The time this assembly was updated", property: :updated_at
@@ -48,7 +48,7 @@ module Decidim
       field :closingDateReason, Decidim::Core::TranslatedFieldType, "Closing date reason of this assembly", property: :closing_date_reason
       field :internalOrganisation, Decidim::Core::TranslatedFieldType, "Internal organisation of this assembly", property: :internal_organisation
       field :isTransparent, types.Boolean, "If this assembly is transparent", property: :is_transparent
-      field :specialFeatures,  Decidim::Core::TranslatedFieldType, "Special features of this assembly", property: :special_features
+      field :specialFeatures, Decidim::Core::TranslatedFieldType, "Special features of this assembly", property: :special_features
       field :twitterHandler, types.String, "Twitter handler", property: :twitter_handler
       field :instagramHandler, types.String, "Instagram handler", property: :instagram_handler
       field :facebookHandler, types.String, "Facebook handler", property: :facebook_handler

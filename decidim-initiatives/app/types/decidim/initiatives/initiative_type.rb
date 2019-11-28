@@ -8,8 +8,8 @@ module Decidim
         -> { Decidim::Core::ParticipatorySpaceInterface },
         -> { Decidim::Core::ScopableInterface },
         -> { Decidim::Core::AttachableInterface },
-        -> { Decidim::Core::AuthorInterface},
-        -> { Decidim::Initiatives::InitiativeTypeInterface}
+        -> { Decidim::Core::AuthorInterface },
+        -> { Decidim::Initiatives::InitiativeTypeInterface }
       ]
 
       name "Initiative"
@@ -33,9 +33,9 @@ module Decidim
       field :author, !Decidim::Core::AuthorInterface, "The initiative author" do
         resolve lambda { |obj, _args, _ctx|
           obj.user_group || obj.author
-        }      
+        }
       end
-      
+
       # These fields may be private:
       # decidim_participatory_process_group_id
       # decidim_organization_id

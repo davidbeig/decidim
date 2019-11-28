@@ -56,24 +56,24 @@ module Decidim
         it "returns the Assembly' hashtag" do
           expect(response["hashtag"]).to eq(model.hashtag)
         end
-      end      
-      
+      end
+
       describe "slogan" do
         let(:query) { '{ slogan { translation(locale: "en")}}' }
-        
+
         it "returns all the required fields" do
           expect(response["slogan"]["translation"]).to eq(model.slogan["en"])
         end
       end
-      
+
       describe "location" do
         let(:query) { "{ location }" }
-        
+
         it "returns the Assembly' location" do
           expect(response["location"]).to eq(model.location)
         end
-      end  
-      
+      end
+
       describe "createdAt" do
         let(:query) { "{ createdAt }" }
 
@@ -97,7 +97,7 @@ module Decidim
           expect(response["publishedAt"]).to eq(model.published_at.to_time.iso8601)
         end
       end
-      
+
       describe "reference" do
         let(:query) { "{ reference }" }
 
@@ -106,7 +106,6 @@ module Decidim
         end
       end
 
-      
       describe "heroImage" do
         let(:query) { "{ heroImage }" }
 
@@ -114,17 +113,17 @@ module Decidim
           expect(response["heroImage"]).to eq(model.hero_image.to_s)
         end
       end
-      
+
       describe "bannerImage" do
         let(:query) { "{ bannerImage }" }
-        
+
         it "returns the banner image field" do
           expect(response["bannerImage"]).to eq(model.banner_image.to_s)
         end
       end
-      
+
       describe "promoted" do
-        let(:query) { "{ promoted }"}
+        let(:query) { "{ promoted }" }
 
         it "returns the promoted field" do
           expect(response["promoted"]).to eq(model.promoted)
@@ -133,7 +132,7 @@ module Decidim
 
       describe "objectives" do
         let(:query) { '{ objectives { translation(locale: "en")}}' }
-        
+
         it "returns all the required fields" do
           expect(response["objectives"]["translation"]).to eq(model.objectives["en"])
         end
@@ -181,7 +180,7 @@ module Decidim
 
       describe "registrationTerms" do
         let(:query) { '{ registrationTerms { translation(locale: "en")}}' }
-        
+
         it "returns all the required fields" do
           expect(response["registrationTerms"]["translation"]).to eq(model.registration_terms["en"])
         end

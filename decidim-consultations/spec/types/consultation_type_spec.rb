@@ -116,7 +116,7 @@ module Decidim
 
       describe "introductoryVideoUrl" do
         let(:query) { "{ introductoryVideoUrl }" }
-      
+
         it "returns the introductoryVideoUrl field" do
           expect(response["introductoryVideoUrl"]).to eq(model.introductory_video_url)
         end
@@ -130,8 +130,8 @@ module Decidim
         end
       end
 
-      context "when results are published" do 
-        let(:model) { create(:consultation, :published_results)}
+      context "when results are published" do
+        let(:model) { create(:consultation, :published_results) }
         let(:query) { "{ resultsPublishedAt }" }
 
         it "returns when the consultation results have been published" do

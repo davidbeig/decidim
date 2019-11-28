@@ -12,7 +12,7 @@ module Decidim
       field :createdAt, Decidim::Core::DateTimeType, "The date this initiative type was created", property: :created_at
       field :updatedAt, Decidim::Core::DateTimeType, "The date this initiative type was updated", property: :updated_at
       field :bannerImage, types.String, "Banner image", property: :banner_image
-      field :collectUserExtraFields, types.Boolean, "Collect participant personal data on signature", property: :collect_user_extra_fields 
+      field :collectUserExtraFields, types.Boolean, "Collect participant personal data on signature", property: :collect_user_extra_fields
       field :extraFieldsLegalInformation, types.String, "Legal information about the collection of personal adata", property: :extra_fields_legal_information
       field :minimumCommitteeMembers, types.Int, "Minimum of committee members", property: :minimum_committee_members
       field :validateSmsCodeOnVotes, types.Boolean, "Add SMS code validation step to signature process", property: :validate_sms_code_on_votes

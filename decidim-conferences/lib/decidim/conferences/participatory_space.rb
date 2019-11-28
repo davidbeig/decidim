@@ -16,7 +16,7 @@ Decidim.register_participatory_space(:conferences) do |participatory_space|
   ]
 
   participatory_space.query_type = "Decidim::Conferences::ConferenceType"
-  
+
   participatory_space.register_resource(:conference) do |resource|
     resource.model_class_name = "Decidim::Conference"
     resource.card = "decidim/conferences/conference"

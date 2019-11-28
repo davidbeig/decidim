@@ -50,7 +50,6 @@ module Decidim
         end
       end
 
-
       describe "bannerImage" do
         let(:query) { "{ bannerImage }" }
 
@@ -58,7 +57,6 @@ module Decidim
           expect(response["bannerImage"]).to eq(model.banner_image.to_s)
         end
       end
-
 
       describe "collectUserExtraFields" do
         let(:query) { "{ collectUserExtraFields }" }
@@ -68,7 +66,6 @@ module Decidim
         end
       end
 
-
       describe "extraFieldsLegalInformation" do
         let(:query) { "{ extraFieldsLegalInformation }" }
 
@@ -76,7 +73,6 @@ module Decidim
           expect(response["extraFieldsLegalInformation"]).to eq(model.extra_fields_legal_information)
         end
       end
-
 
       describe "minimumCommitteeMembers" do
         let(:query) { "{ minimumCommitteeMembers }" }
@@ -86,7 +82,6 @@ module Decidim
         end
       end
 
-
       describe "validateSmsCodeOnVotes" do
         let(:query) { "{ validateSmsCodeOnVotes }" }
 
@@ -94,7 +89,6 @@ module Decidim
           expect(response["validateSmsCodeOnVotes"]).to eq(model.validate_sms_code_on_votes)
         end
       end
-
 
       describe "documentNumberAuthorizationHandler" do
         let(:query) { "{ documentNumberAuthorizationHandler }" }
@@ -104,7 +98,6 @@ module Decidim
         end
       end
 
-
       describe "undoOnlineSignaturesEnabled" do
         let(:query) { "{ undoOnlineSignaturesEnabled }" }
 
@@ -113,7 +106,6 @@ module Decidim
         end
       end
 
-
       describe "promotingComitteeEnabled" do
         let(:query) { "{ promotingComitteeEnabled }" }
 
@@ -121,7 +113,6 @@ module Decidim
           expect(response["promotingComitteeEnabled"]).to eq(model.promoting_committee_enabled)
         end
       end
-
 
       describe "signatureType" do
         let(:query) { "{ signatureType }" }
