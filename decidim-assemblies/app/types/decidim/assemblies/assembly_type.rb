@@ -55,6 +55,8 @@ module Decidim
       field :youtubeHandler, types.String, "Youtube handler", property: :youtube_handler
       field :githubHandler, types.String, "Github handler", property: :github_handler
 
+      field :members, types[Decidim::Assemblies::AssemblyMemberType], "Members of this assembly"
+
       # These fields may be private:
       # decidim_participatory_process_group_id
       # decidim_organization_id
