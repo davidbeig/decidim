@@ -9,7 +9,7 @@ module Decidim
 
       field :id, !types.ID, ""
       field :user, Decidim::Core::UserType do
-        resolve ->(obj, _, _) { Decidim::User.find_by(id: obj.decidim_user_id) }
+        resolve ->(obj, _, _) { Decidim::User.find_by(id: obj.decidim_users_id) }
       end
 
       field :state, types.Int, "Type of the committee member"
