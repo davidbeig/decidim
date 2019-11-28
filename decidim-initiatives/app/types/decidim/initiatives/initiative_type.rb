@@ -36,6 +36,8 @@ module Decidim
         }
       end
 
+      field :committeeMembers, types[Decidim::Initiatives::InitiativeCommitteeMemberType], property: :committee_members
+
       # These fields may be private:
       # decidim_participatory_process_group_id
       # decidim_organization_id
