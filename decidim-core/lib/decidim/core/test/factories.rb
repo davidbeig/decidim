@@ -375,6 +375,7 @@ FactoryBot.define do
   factory :area, class: "Decidim::Area" do
     name { Decidim::Faker::Localized.literal(generate(:area_name)) }
     organization
+    area_type { create(:area_type) }
   end
 
   factory :coauthorship, class: "Decidim::Coauthorship" do
