@@ -22,7 +22,7 @@ module Decidim
       field :updatedAt, !Decidim::Core::DateTimeType, "The time this initiative was updated", property: :updated_at
       field :publishedAt, !Decidim::Core::DateTimeType, "The time this initiative was published", property: :published_at
       field :reference, !types.String, "Reference prefix for this initiative"
-      field :state, types.String, "State of the initiative"
+      field :state, types.String, "Current status of the initiative"
       field :signatureType, types.String, "Signature type of the initiative", property: :signature_type
       field :signatureStartDate, !Decidim::Core::DateType, "The signature start date", property: :signature_start_date
       field :signatureEndDate, !Decidim::Core::DateType, "The signature end date", property: :signature_end_date
@@ -37,11 +37,6 @@ module Decidim
       end
 
       field :committeeMembers, types[Decidim::Initiatives::InitiativeCommitteeMemberType], property: :committee_members
-
-      # These fields may be private:
-      # decidim_participatory_process_group_id
-      # decidim_organization_id
-      # private_space
     end
   end
 end

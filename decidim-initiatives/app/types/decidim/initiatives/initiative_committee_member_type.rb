@@ -7,19 +7,12 @@ module Decidim
       name "InitiativeCommitteeMemberType"
       description "A initiative committee member"
 
-      field :id, !types.ID, ""
-      field :user, Decidim::Core::UserType do
-        resolve ->(obj, _, _) { Decidim::User.find_by(id: obj.decidim_users_id) }
-      end
+      field :id, !types.ID, "Internal ID for this member of the committee"
+      field :user, Decidim::Core::UserType, "", property: :user
 
       field :state, types.Int, "Type of the committee member"
       field :createdAt, Decidim::Core::DateTimeType, "", property: :created_at
       field :updatedAt, Decidim::Core::DateTimeType, "", property: :updated_at
-
-      # These fields may be private:
-      # decidim_participatory_process_group_id
-      # decidim_organization_id
-      # private_space
     end
   end
 end

@@ -90,14 +90,6 @@ module Decidim
         end
       end
 
-      describe "documentNumberAuthorizationHandler" do
-        let(:query) { "{ documentNumberAuthorizationHandler }" }
-
-        it "returns the document number authorization handler field" do
-          expect(response["documentNumberAuthorizationHandler"]).to eq(model.document_number_authorization_handler)
-        end
-      end
-
       describe "undoOnlineSignaturesEnabled" do
         let(:query) { "{ undoOnlineSignaturesEnabled }" }
 
