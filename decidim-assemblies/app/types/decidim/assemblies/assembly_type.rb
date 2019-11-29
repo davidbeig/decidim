@@ -18,7 +18,7 @@ module Decidim
       field :hashtag, types.String, "The hashtag for this assembly"
       field :createdAt, !Decidim::Core::DateTimeType, "The time this assembly was created", property: :created_at
       field :updatedAt, !Decidim::Core::DateTimeType, "The time this assembly was updated", property: :updated_at
-      field :publishedAt, !Decidim::Core::DateTimeType, "The time this assembly was updated", property: :published_at
+      field :publishedAt, !Decidim::Core::DateTimeType, "The time this assembly was published", property: :published_at
       field :reference, !types.String, "Reference prefix for this assembly"
 
       field :heroImage, types.String, "The hero image for this assembly", property: :hero_image
@@ -33,10 +33,10 @@ module Decidim
       field :showStatistics, types.Boolean, "If this assembly should show statistics", property: :show_statistics
       field :scopesEnabled, types.Boolean, "If this assembly has scopes enabled", property: :scopes_enabled
       field :privateSpace, types.Boolean, "If this assembly is a private space", property: :private_space
-      field :decidimAreaId, types.Int, "", property: :decidim_area_id
-      field :parentId, types.Int, "", property: :parent_id
-      field :parentsPath, types.String, "", property: :parents_path
-      field :childrenCount, types.Int, "", property: :children_count
+      field :area, Decidim::Core::AreaApiType, "Area of this assembly", property: :area
+      field :parent, Decidim::Assemblies::AssemblyType, "The parent assembly of this assembly", property: :parent
+      field :parentsPath, types.String, "Assembly hierarchy representation", property: :parents_path
+      field :childrenCount, types.Int, "Number of children assemblies", property: :children_count
       field :purposeOfAction, Decidim::Core::TranslatedFieldType, "Purpose of action", property: :purpose_of_action
       field :composition, Decidim::Core::TranslatedFieldType, "Composition of this assembly"
       field :assemblyType, types.String, "Type of the assembly", property: :assembly_type
@@ -56,11 +56,7 @@ module Decidim
       field :githubHandler, types.String, "Github handler", property: :github_handler
 
       field :members, types[Decidim::Assemblies::AssemblyMemberType], "Members of this assembly"
-
-      # These fields may be private:
-      # decidim_participatory_process_group_id
-      # decidim_organization_id
-      # private_space
+      field :childrens, types[Decidim::Assemblies::AssemblyType], "Childrens of this assembly"
     end
   end
 end

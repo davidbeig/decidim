@@ -4,22 +4,17 @@ module Decidim
   module Conferences
     # This type represents a conference.
     ConferencePartnerType = GraphQL::ObjectType.define do
-      name "ConferencePartnerType"
+      name "ConferencePartner"
       description "A conference partner"
 
-      field :id, types.Int, ""
-      field :name, types.String, ""
-      field :partnerType, types.String, "", property: :partner_type
-      field :weight, types.Int, ""
-      field :link, types.String, ""
-      field :logo, types.String, ""
-      field :createdAt, Decidim::Core::DateTimeType, "", property: :created_at
-      field :updatedAt, Decidim::Core::DateTimeType, "", property: :updated_at
-
-      # These fields may be private:
-      # decidim_participatory_process_group_id
-      # decidim_organization_id
-      # private_space
+      field :id, types.Int, "ID of the resource"
+      field :name, types.String, "Partner name"
+      field :partnerType, types.String, "Partner type", property: :partner_type
+      field :weight, types.Int, "Order of appearance in which it should be presented"
+      field :link, types.String, "Relevant URL for this partner"
+      field :logo, types.String, "Link to the partner's logo"
+      field :createdAt, Decidim::Core::DateTimeType, "The time this partner was created", property: :created_at
+      field :updatedAt, Decidim::Core::DateTimeType, "The time this partner was updated", property: :updated_at
     end
   end
 end
