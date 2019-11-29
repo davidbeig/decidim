@@ -11,7 +11,7 @@ module Decidim
       let(:model) { create(:area_type) }
 
       describe "id" do
-        let(:query) { '{ id }' }
+        let(:query) { "{ id }" }
 
         it "returns the area type's id" do
           expect(response["id"]).to eq(model.id.to_s)

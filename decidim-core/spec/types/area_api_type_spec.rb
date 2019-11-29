@@ -11,7 +11,7 @@ module Decidim
       let(:model) { create(:area) }
 
       describe "id" do
-        let(:query) { '{ id }' }
+        let(:query) { "{ id }" }
 
         it "returns the area's id" do
           expect(response["id"]).to eq(model.id.to_s)
@@ -27,8 +27,8 @@ module Decidim
       end
 
       describe "areaType" do
-        let(:query) { '{ areaType { id } }' }
-        
+        let(:query) { "{ areaType { id } }" }
+
         it "returns the area's areaType" do
           expect(response["areaType"]["id"]).to eq(model.area_type.id.to_s)
         end
