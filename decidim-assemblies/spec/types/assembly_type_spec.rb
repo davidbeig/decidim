@@ -178,19 +178,19 @@ module Decidim
         end
       end
 
-      describe "decidimAreaId" do
-        let(:query) { "{ decidimAreaId }" }
+      describe "area" do
+        let(:query) { "{ area { id } }" }
 
-        it "returns the decidimAreaId field" do
-          expect(response["decidimAreaId"]).to eq(model.decidim_area_id)
+        it "returns the area field" do
+          expect(response["area"]).to be nil
         end
       end
 
       describe "parentId" do
-        let(:query) { "{ parentId }" }
+        let(:query) { "{ parent { id }}" }
 
-        it "returns the parentId field" do
-          expect(response["parentId"]).to eq(model.parent_id)
+        it "returns the parent" do
+          expect(response["parent"]).to be nil
         end
       end
 
