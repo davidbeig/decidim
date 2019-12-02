@@ -5,12 +5,14 @@ module Decidim
     # This type represents a assembly.
     AssemblyType = GraphQL::ObjectType.define do
       interfaces [
-        -> { Decidim::Core::ParticipatorySpaceInterface }
+        -> { Decidim::Core::ParticipatorySpaceInterface },
+        -> { Decidim::Core::AttachableInterface }
       ]
 
       name "Assembly"
       description "An assembly"
 
+      field :id, !types.ID, "The internal ID for this assembly"
       field :subtitle, Decidim::Core::TranslatedFieldType, "The subtitle of this assembly"
       field :shortDescription, Decidim::Core::TranslatedFieldType, "The sort description of this assembly", property: :short_description
       field :description, Decidim::Core::TranslatedFieldType, "The description of this assembly"
@@ -19,7 +21,8 @@ module Decidim
       field :createdAt, !Decidim::Core::DateTimeType, "The time this assembly was created", property: :created_at
       field :updatedAt, !Decidim::Core::DateTimeType, "The time this assembly was updated", property: :updated_at
       field :publishedAt, !Decidim::Core::DateTimeType, "The time this assembly was published", property: :published_at
-      field :reference, !types.String, "Reference prefix for this assembly"
+      field :reference, !types.String, "Reference for this assembly"
+      field :categories, !types[Decidim::Core::CategoryType], "Categories for this assembly"
 
       field :heroImage, types.String, "The hero image for this assembly", property: :hero_image
       field :bannerImage, types.String, "The banner image for this assembly", property: :banner_image
@@ -40,8 +43,10 @@ module Decidim
       field :purposeOfAction, Decidim::Core::TranslatedFieldType, "Purpose of action", property: :purpose_of_action
       field :composition, Decidim::Core::TranslatedFieldType, "Composition of this assembly"
       field :assemblyType, types.String, "Type of the assembly", property: :assembly_type
+      field :assemblyTypeOther, Decidim::Core::TranslatedFieldType, "Custom assembly type", property: :assembly_type_other
       field :creationDate, Decidim::Core::DateType, "Creation date of this assembly", property: :creation_date
-      field :createdByOther, Decidim::Core::TranslatedFieldType, "Created by other", property: :created_by_other
+      field :createdBy, types.String, "The creator of this assembly", property: :created_by
+      field :createdByOther, Decidim::Core::TranslatedFieldType, "Custom creator", property: :created_by_other
       field :duration, Decidim::Core::DateType, "Duration of this assembly"
       field :includedAt, Decidim::Core::DateType, "Included at", property: :included_at
       field :closingDate, Decidim::Core::DateType, "Closing date of the assembly", property: :closing_date
@@ -55,7 +60,7 @@ module Decidim
       field :youtubeHandler, types.String, "Youtube handler", property: :youtube_handler
       field :githubHandler, types.String, "Github handler", property: :github_handler
 
-      field :members, types[Decidim::Assemblies::AssemblyMemberType], "Members of this assembly"
+      field :members, !types[Decidim::Assemblies::AssemblyMemberType], "Members of this assembly"
       field :childrens, !types[Decidim::Assemblies::AssemblyType], "Childrens of this assembly"
     end
   end

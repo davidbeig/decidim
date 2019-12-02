@@ -3,12 +3,16 @@
 require "spec_helper"
 require "decidim/api/test/type_context"
 
+require "decidim/core/test/shared_examples/attachable_interface_examples"
+
 module Decidim
   module Assemblies
     describe AssemblyType, type: :graphql do
       include_context "with a graphql type"
 
       let(:model) { create(:assembly) }
+
+      include_examples "attachable interface"
 
       describe "id" do
         let(:query) { "{ id }" }
@@ -234,11 +238,27 @@ module Decidim
         end
       end
 
+      describe "assemblyTypeOther" do
+        let(:query) { '{ assemblyTypeOther { translation(locale: "en" )}}' }
+
+        it "returns the assemblyTypeOther field" do
+          expect(response["assemblyTypeOther"]["translation"]).to eq(model.assembly_type_other["en"])
+        end
+      end
+
       describe "creationDate" do
         let(:query) { "{ creationDate }" }
 
         it "returns the assembly creation date field" do
           expect(response["creationDate"]).to eq(model.creation_date.to_date.iso8601)
+        end
+      end
+
+      describe "createdBy" do
+        let(:query) { "{ createdBy }" }
+
+        it "returns the createdBy field" do
+          expect(response["createdBy"]).to eq(model.created_by)
         end
       end
 

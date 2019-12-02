@@ -7,7 +7,7 @@ module Decidim
       name "AssemblyMember"
       description "An assembly member"
 
-      field :id, types.Int, "Internal ID of the member"
+      field :id, !types.ID, "Internal ID of the member"
       field :fullName, types.String, "Full name of the member", property: :full_name
       field :position, types.String, "Position of the member in the assembly"
 
