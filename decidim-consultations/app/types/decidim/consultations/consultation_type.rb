@@ -21,7 +21,7 @@ module Decidim
       field :introductoryVideoUrl, types.String, "The introductory video url for this consultation", property: :introductory_video_url
       field :introductoryImage, types.String, "The introductory image for this consultation", property: :introductory_image
       field :bannerImage, types.String, "The banner image for this consultation", property: :banner_image
-      field :decidimHighlightedScopeId, types.Int, "This is the highlighted scope of this consultation", property: :decidim_highlighted_scope_id
+      field :highlightedScope, Decidim::Core::ScopeApiType, "This is the highlighted scope of this consultation", property: :highlighted_scope
       field :startVotingDate, Decidim::Core::DateType, "Start date of the voting for this consultation", property: :start_voting_date
       field :endVotingDate, Decidim::Core::DateType, "End date of the voting for this consultation", property: :end_voting_date
       field :resultsPublishedAt, Decidim::Core::DateType, "Date when the results have been published", property: :results_published_at

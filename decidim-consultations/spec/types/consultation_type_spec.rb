@@ -114,19 +114,19 @@ module Decidim
         end
       end
 
+      describe "highlightedScope" do
+        let(:query) { "{ highlightedScope { id } }" }
+
+        it "has a highlightedScope" do
+          expect(response).to include("highlightedScope" => { "id" => model.highlighted_scope.id.to_s })
+        end
+      end
+
       describe "introductoryVideoUrl" do
         let(:query) { "{ introductoryVideoUrl }" }
 
         it "returns the introductoryVideoUrl field" do
           expect(response["introductoryVideoUrl"]).to eq(model.introductory_video_url)
-        end
-      end
-
-      describe "decidimHighlightedScopeId" do
-        let(:query) { "{ decidimHighlightedScopeId }" }
-
-        it "returns the decidimHighlightedScopeId field" do
-          expect(response["decidimHighlightedScopeId"]).to eq(model.decidim_highlighted_scope_id)
         end
       end
 
