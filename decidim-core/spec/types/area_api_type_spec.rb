@@ -8,7 +8,8 @@ module Decidim
     describe AreaApiType do
       include_context "with a graphql type"
 
-      let(:model) { create(:area) }
+      let(:model) { create(:area, area_type: area_type, organization: area_type.organization) }
+      let(:area_type) { create(:area_type) }
 
       describe "id" do
         let(:query) { "{ id }" }

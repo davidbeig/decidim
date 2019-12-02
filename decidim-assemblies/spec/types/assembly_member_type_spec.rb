@@ -74,14 +74,6 @@ module Decidim
         end
       end
 
-      describe "birthday" do
-        let(:query) { "{ birthday }" }
-
-        it "returns the assembly member birthday" do
-          expect(response["birthday"]).to eq(model.birthday.to_date.iso8601)
-        end
-      end
-
       describe "birthplace" do
         let(:query) { "{ birthplace }" }
 
@@ -95,14 +87,6 @@ module Decidim
 
         it "returns the assembly member designationDate" do
           expect(response["designationDate"]).to eq(model.designation_date.to_date.iso8601)
-        end
-      end
-
-      describe "designationMode" do
-        let(:query) { "{ designationMode }" }
-
-        it "returns the assembly member designationMode" do
-          expect(response["designationMode"]).to eq(model.designation_mode)
         end
       end
 

@@ -33,8 +33,8 @@ module Decidim
       field :showStatistics, types.Boolean, "If this assembly should show statistics", property: :show_statistics
       field :scopesEnabled, types.Boolean, "If this assembly has scopes enabled", property: :scopes_enabled
       field :privateSpace, types.Boolean, "If this assembly is a private space", property: :private_space
-      field :area, Decidim::Core::AreaApiType, "Area of this assembly", property: :area
-      field :parent, Decidim::Assemblies::AssemblyType, "The parent assembly of this assembly", property: :parent
+      field :area, Decidim::Core::AreaApiType, "Area of this assembly"
+      field :parent, Decidim::Assemblies::AssemblyType, "The parent assembly of this assembly"
       field :parentsPath, types.String, "Assembly hierarchy representation", property: :parents_path
       field :childrenCount, types.Int, "Number of children assemblies", property: :children_count
       field :purposeOfAction, Decidim::Core::TranslatedFieldType, "Purpose of action", property: :purpose_of_action
@@ -56,7 +56,7 @@ module Decidim
       field :githubHandler, types.String, "Github handler", property: :github_handler
 
       field :members, types[Decidim::Assemblies::AssemblyMemberType], "Members of this assembly"
-      field :childrens, types[Decidim::Assemblies::AssemblyType], "Childrens of this assembly"
+      field :childrens, !types[Decidim::Assemblies::AssemblyType], "Childrens of this assembly"
     end
   end
 end

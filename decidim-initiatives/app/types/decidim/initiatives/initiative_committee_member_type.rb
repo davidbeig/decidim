@@ -8,11 +8,11 @@ module Decidim
       description "A initiative committee member"
 
       field :id, !types.ID, "Internal ID for this member of the committee"
-      field :user, Decidim::Core::UserType, "", property: :user
+      field :user, Decidim::Core::UserType, "The decidim user for this initiative committee member"
 
       field :state, types.Int, "Type of the committee member"
-      field :createdAt, Decidim::Core::DateTimeType, "", property: :created_at
-      field :updatedAt, Decidim::Core::DateTimeType, "", property: :updated_at
+      field :createdAt, Decidim::Core::DateTimeType, "The date this initiative committee member was created", property: :created_at
+      field :updatedAt, Decidim::Core::DateTimeType, "The date this initiative committee member was updated", property: :updated_at
     end
   end
 end
