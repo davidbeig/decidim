@@ -190,7 +190,7 @@ module Decidim
         end
       end
 
-      describe "parentId" do
+      describe "parent" do
         let(:query) { "{ parent { id }}" }
 
         it "returns the parent" do
@@ -207,10 +207,21 @@ module Decidim
       end
 
       describe "childrenCount" do
+        let!(:children) { create(:assembly, organization: model.organization, parent: model) }
         let(:query) { "{ childrenCount }" }
 
         it "returns the childrenCount field" do
           expect(response["childrenCount"]).to eq(model.children_count)
+          expect(response["childrenCount"]).to eq(1)
+        end
+      end
+
+      describe "children" do
+        let!(:children) { create(:assembly, organization: model.organization, parent: model) }
+        let(:query) { "{ children { id } }" }
+
+        it "returns the children field" do
+          expect(response["children"].first["id"]).to eq(children.id.to_s)
         end
       end
 

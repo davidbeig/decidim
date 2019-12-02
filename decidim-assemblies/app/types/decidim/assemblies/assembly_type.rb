@@ -61,7 +61,7 @@ module Decidim
       field :githubHandler, types.String, "Github handler", property: :github_handler
 
       field :members, !types[Decidim::Assemblies::AssemblyMemberType], "Members of this assembly"
-      field :childrens, !types[Decidim::Assemblies::AssemblyType], "Childrens of this assembly"
+      field :children, !types[Decidim::Assemblies::AssemblyType], "Childrens of this assembly"
     end
   end
 end
