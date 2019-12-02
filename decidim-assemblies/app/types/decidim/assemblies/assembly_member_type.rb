@@ -18,7 +18,7 @@ module Decidim
 
       field :weight, types.Int, "Order of appearance in which it should be represented"
       field :gender, types.String, "Gender of the member"
-      field :birthday, Decidim::Core::DateType, "Birthday date of the member"
+     # field :birthday, Decidim::Core::DateType, "Birthday date of the member" # non-public currently
       field :birthplace, types.String, "Birthplace of the member"
       field :designationDate, Decidim::Core::DateType, "Date of designation of the member", property: :designation_date
      #field :designationMode, types.String, "Mode in which the member was designated", property: :designation_mode # non-public currently
