@@ -99,7 +99,7 @@ module Decidim
       end
 
       context "when there's a user" do
-        let (:model) { create :conference_speaker, :with_user }
+        let(:model) { create(:conference_speaker, :with_user) }
 
         describe "user" do
           let(:query) { "{ user { name   } }" }
