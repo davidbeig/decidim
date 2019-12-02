@@ -53,7 +53,7 @@ module Decidim
       describe "hashtag" do
         let(:query) { "{ hashtag }" }
 
-        it "returns the Assembly' hashtag" do
+        it "returns the conference' hashtag" do
           expect(response["hashtag"]).to eq(model.hashtag)
         end
       end
@@ -69,7 +69,7 @@ module Decidim
       describe "location" do
         let(:query) { "{ location }" }
 
-        it "returns the Assembly' location" do
+        it "returns the conference' location" do
           expect(response["location"]).to eq(model.location)
         end
       end
@@ -101,7 +101,7 @@ module Decidim
       describe "reference" do
         let(:query) { "{ reference }" }
 
-        it "returns the Assembly' reference" do
+        it "returns the conference' reference" do
           expect(response["reference"]).to eq(model.reference)
         end
       end
