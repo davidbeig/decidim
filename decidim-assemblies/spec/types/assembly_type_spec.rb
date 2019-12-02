@@ -193,8 +193,18 @@ module Decidim
       describe "parent" do
         let(:query) { "{ parent { id }}" }
 
-        it "returns the parent" do
-          expect(response["parent"]).to be nil
+        context "when has no parent" do
+          it "returns the parent" do
+            expect(response["parent"]).to be nil
+          end
+        end
+
+        context "when has parent" do
+          let!(:parent) { create(:assembly, organization: model.organization, children: [model]) }
+
+          it "returns the parent" do
+            expect(response["parent"]["id"]).to eq(parent.id.to_s)
+          end
         end
       end
 
