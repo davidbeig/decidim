@@ -7,7 +7,7 @@ module Decidim
       name "ConferenceMediaLink"
       description "A conference media link"
 
-      field :id, types.Int, "Internal ID for this media link"
+      field :id, !types.ID, "Internal ID for this media link"
       field :title, Decidim::Core::TranslatedFieldType, "Title for this media link"
       field :link, types.String, "URL for this media link"
       field :date, Decidim::Core::DateType, "Relevant date for the media link"

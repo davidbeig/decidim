@@ -7,7 +7,7 @@ module Decidim
       name "ConferenceSpeaker"
       description "A conference speaker"
 
-      field :id, types.Int, "Internal ID of the speaker"
+      field :id, !types.ID, "Internal ID of the speaker"
       field :fullName, types.String, "Full name of the speaker", property: :full_name
       field :position, Decidim::Core::TranslatedFieldType, "Position of the speaker in the conference"
       field :affiliation, Decidim::Core::TranslatedFieldType, "Affiliation of the speaker"

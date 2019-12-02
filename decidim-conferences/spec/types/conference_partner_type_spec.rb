@@ -14,7 +14,7 @@ module Decidim
         let(:query) { "{ id }" }
 
         it "returns the id field" do
-          expect(response["id"]).to eq(model.id)
+          expect(response["id"]).to eq(model.id.to_s)
         end
       end
 

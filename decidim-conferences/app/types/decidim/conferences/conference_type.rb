@@ -6,12 +6,14 @@ module Decidim
     ConferenceType = GraphQL::ObjectType.define do
       interfaces [
         -> { Decidim::Core::ParticipatorySpaceInterface },
-        -> { Decidim::Core::ScopableInterface }
+        -> { Decidim::Core::ScopableInterface },
+        -> { Decidim::Core::AttachableInterface }
       ]
 
       name "Conference"
       description "A conference"
 
+      field :id, !types.ID, "Internal ID for this conference"
       field :subtitle, Decidim::Core::TranslatedFieldType, "The subtitle of this conference"
       field :shortDescription, Decidim::Core::TranslatedFieldType, "The short description of this conference", property: :short_description
       field :description, Decidim::Core::TranslatedFieldType, "The description of this conference"

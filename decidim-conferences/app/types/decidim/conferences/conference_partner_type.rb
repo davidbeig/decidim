@@ -7,7 +7,7 @@ module Decidim
       name "ConferencePartner"
       description "A conference partner"
 
-      field :id, types.Int, "ID of the resource"
+      field :id, !types.ID, "ID of the resource"
       field :name, types.String, "Partner name"
       field :partnerType, types.String, "Partner type", property: :partner_type
       field :weight, types.Int, "Order of appearance in which it should be presented"
