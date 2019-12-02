@@ -6,9 +6,9 @@ module Decidim
       name "AreaType"
       description "An area type."
 
-      field :id, !types.ID
-      field :name, !TranslatedFieldType, "The name of this area."
-      field :plural, !TranslatedFieldType, "The plural name of this area"
+      field :id, !types.ID, "Internal ID for this area type"
+      field :name, !TranslatedFieldType, "The name of this area type."
+      field :plural, !TranslatedFieldType, "The plural name of this area type"
     end
   end
 end
